@@ -1,0 +1,76 @@
+<% include header %> <% include navTopView %>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-tt">
+        <h2>Tạo tài khoản phòng ban</h2>
+        <form action="/user" method="post" name="dang-ky">
+          <input
+            type="text"
+            name="username"
+            placeholder="Nhập tên khoa..."
+          />
+          <input type="text" name="name" placeholder="Mật khẩu cho khoa..." />
+
+          <input type="submit" name="submit" value="Tạo" />
+        </form>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-tt">
+        <h2>Tạo chủ đề thông báo</h2>
+        <form action="/typeInform" method="post" name="dang-ky">
+          <input type="text" name="nameType" placeholder="Nhập tên đăng ký" />
+
+          <input type="submit" name="submit" value="Tạo" />
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <h2>List</h2>
+
+  <table class="table">
+    <thead>
+      <tr>
+        
+        <th>Tên Khoa</th>
+        <th>Mật khẩu của khoa</th>
+        <th>Chủ đề</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <%for(let i=0; i<listUser.length; i++) {%>     
+      <tr class="table-primary">
+       
+        <td><%=listUser[i].username%></td>
+        <td><%=listUser[i].name%></td>
+        <td>
+            
+         
+          <form action="/user/edit" method="post">
+              <select name="idType" class="custom-select-sm">
+                <option value=""></option>
+                  <% for(let j=0; j<listType.length; j++) {%>
+                     
+              
+                <option <%if(typeof listUser[i].manageTopic!='undefined'&&String(listUser[i].manageTopic._id)==String(listType[j]._id)){%>selected <%}%>  value="<%=listType[j]._id%>"><%=listType[j].name%></option>
+                <%}%>
+              
+              </select>
+
+              <input type="hidden" class = "messageSender__input2"value="<%=listUser[i]._id%>" name="idUser">
+              <button class="btn btn-success" type="submit">Lưu</button>
+          </form>
+       
+        </td>
+      </tr>
+      <%}%>
+      
+    </tbody>
+  </table>
+</div>
+
+<% include footer %>

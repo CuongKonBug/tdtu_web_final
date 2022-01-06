@@ -1,0 +1,45 @@
+<% include header %>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 p-0">
+      <div
+        id="login-page"
+        class="jumbotron min-vh-100 text-center m-0 d-flex flex-column justify-content-center"
+      >
+        <span class="login-text">Đăng Nhập</span>
+        <% if (messages.error) { %>
+        <span class="text-warning text-center">
+          <h5><%= messages.error %></h5></span
+        >
+        <% } %>
+
+        <div class="form-tt form_login">
+          <h2>Đăng Nhập</h2>
+          <form action="user/signin" method="post" name="dang-ky">
+            <input
+              type="text"
+              placeholder="Username"
+              aria-label="Username"
+              name="username"
+              aria-describedby="basic-addon1"
+            />
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              aria-label="Password"
+              aria-describedby="basic-addon1"
+            />
+            <input type="submit" name="submit" value="Đăng Nhập" />
+
+            <a class="btn btn-success mt-4" href="/google"
+              >Đăng nhập với Google <i class="fab fa-google-plus-g"></i
+            ></a>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<% include footer %>
