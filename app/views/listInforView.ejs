@@ -27,6 +27,7 @@
     </div>
     <%}%>
     
+    
   </div>
 
   <%if (typeof user.manageTopic !='undefined' &&typeof user.manageTopic.name!=''){%>
@@ -56,10 +57,10 @@
 
             <div class="form-group">
               <label>Phân loại:</label>
-              <select name="classify" class="custom-select-sm" @change="handleSelectType($e)">
-                <option value="all" <%if(type=='all'){%>selected<%}%>>Tất cả</option>
+              <select name="classify" class="custom-select-sm" >
+               
                 <% for(let j=0; j<listTypeInform.length; j++) {%>                                                
-                  <option   value="<%=listTypeInform[j]._id%>" <%if(type==listTypeInform[j]._id){%>selected<%}%>  ><%=listTypeInform[j].name%></option>
+                  <option   value="<%=listTypeInform[j]._id%>" <%if(type==listTypeInform[j].name){%>selected<%}%>  ><%=listTypeInform[j].name%></option>
                   <%}%>
               </select>
                 

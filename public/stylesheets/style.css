@@ -131,8 +131,8 @@
   position: relative;
   background-repeat: no-repeat;
   background-size: cover;
-  width: 120px;
-  height: 200px;
+  width: 420px;
+  height: 250px;
   box-shadow: 0px 5px 17px -7px rgba(0, 0, 0, 0.75);
   border-radius: 10px;
   margin-right: 10px;
@@ -145,8 +145,10 @@
 }
 
 .story__avatar {
-  margin: 10px;
+  margin: 90px;
   color: blue;
+  margin-top: 22px;
+  margin-left: 10px;
 }
 
 .story h4 {
@@ -157,8 +159,10 @@
 }
 
 .storyReel {
+  margin-left: -150px !important;
   padding: 10px 0;
   display: flex;
+  width: 800px !important;
 }
 
 .main__body {
@@ -700,4 +704,4 @@ textarea.form-control {
   background: linear-gradient(top, #2d3635, #b224ef);
 }
 
-/* final */
+/* final final*/

@@ -11,14 +11,18 @@ class InformController {
 
           .populate("idType")
           .populate("idOwner");
+        const a = informPost.idType;
+        const b = await TypeInform.findOne({ _id: a });
+
         res.render("informationView", {
+          b,
           informPost,
           title: req.user.name,
           user: req.user,
         });
       } else {
         let { type, page } = req.query;
-        console.log(type);
+
         if (typeof type == "undefined") {
           type = "all";
         }
@@ -51,7 +55,8 @@ class InformController {
         const totalPage = Math.ceil(totalInform / pag);
 
         const listTypeInform = await TypeInform.find();
-        console.log(listInform);
+
+        // console.log(listTypeInformName);
         res.render("listInforView", {
           title: "List Inform",
           back: page > 1 ? true : false,
@@ -60,6 +65,7 @@ class InformController {
           user: req.user,
           listInform,
           listTypeInform,
+
           type,
           idType: type,
         });
