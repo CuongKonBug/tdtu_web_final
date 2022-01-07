@@ -1,6 +1,6 @@
 <% include header %> <% include navTopView %>
 
-<div id="inform-infor" class="container">
+<div id="inform-infor" class="inform-infor container">
   <%if(String(user._id)==String(informPost.idOwner._id)){%>
   <div class="dropdown float-right">
     <button
@@ -76,7 +76,7 @@
     <div>
       <small
         ><span class="text-success">Phân loại:</span>
-        <%= informPost.classify%> |
+
         <span class="text-warning">Ngày đăng:</span>
         <%= informPost.createdAt%>
       </small>

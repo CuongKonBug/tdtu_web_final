@@ -106,15 +106,7 @@ const listPostCurr = new Vue({
 
       return [...listPost.data];
     },
-    handleScrollLastPage(e) {
-      $(document).ready(() => {
-        let documentHeight = $(document).height();
-        let windowHeight = $(window).height();
-        let scrollPosition = $(window).scrollTop();
-        let scrollLimit = documentHeight - windowHeight;
-        scrollPosition >= scrollLimit - 180 ? (this.isBool = true) : "";
-      });
-    },
+    handleScrollLastPage(e) {},
     openComment(post_Id) {
       let state = document.getElementById("comment-area" + post_Id).style
         .display;
@@ -238,15 +230,16 @@ const listPostCurr = new Vue({
   },
 });
 
-const listInformation = new Vue({
-  el: "#information-list",
-
+const listInform = new Vue({
+  el: ".information-list",
+  data: {
+    key: "",
+  },
   methods: {
-    handleSelectType(e) {
-      this.currentTypeTopic = e.target.value;
-
-      if (e.target.value != "") {
-        window.location.href = "/inform?type=" + e.target.value;
+    handleSelectType(event) {
+      this.currentTypeTopic = event.target.value;
+      if (event.target.value != "") {
+        window.location.href = "/inform?type=" + event.target.value;
       } else {
         window.location.href = "/inform";
       }
@@ -255,7 +248,7 @@ const listInformation = new Vue({
 });
 
 const informationUserEdit = new Vue({
-  el: "#area-change-infor",
+  el: ".areachangeavt",
   methods: {
     handleDialogAvatar() {
       let getElementAvt = document.getElementById("avatar-input");

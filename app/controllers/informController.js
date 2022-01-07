@@ -18,7 +18,7 @@ class InformController {
         });
       } else {
         let { type, page } = req.query;
-
+        console.log(type);
         if (typeof type == "undefined") {
           type = "all";
         }
@@ -51,6 +51,7 @@ class InformController {
         const totalPage = Math.ceil(totalInform / pag);
 
         const listTypeInform = await TypeInform.find();
+        console.log(listInform);
         res.render("listInforView", {
           title: "List Inform",
           back: page > 1 ? true : false,
@@ -73,7 +74,6 @@ class InformController {
     try {
       const { classify, title, content } = req.body;
 
-      // const classify = req.body.select;
       const type = req.user.manageTopic;
       const newInform = new Inform({
         idOwner: req.user._id,
@@ -81,7 +81,7 @@ class InformController {
         title,
         content,
         createdAt: new Date(),
-        idType: type._id,
+        idType: classify,
       });
 
       await newInform.save();
@@ -99,6 +99,7 @@ class InformController {
         .populate("idType")
         .limit(5)
         .sort({ createdAt: -1 });
+      res.json(listInform);
     } catch (error) {
       res.send(error);
       res.status(401);

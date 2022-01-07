@@ -1,7 +1,7 @@
 <% include header %> <% include navTopView %>
-<div id="information-list" class="container" >
+<div class="information-list" class="container" >
  
-  <select name="cars" class="custom-select-sm" @change="handleSelectType($e)">
+  <select name="cars" class="custom-select-sm" @change="handleSelectType($event)">
     <option value="all" <%if(type=='all'){%>selected<%}%>>Tất cả</option>
     <% for(let j=0; j<listTypeInform.length; j++) {%>
                                         
@@ -16,14 +16,17 @@
   </ul></div>
   <div id="informs">
     <% for(let j=0; j<listInform.length; j++) {%>
+      
     <div class="inform pointer my-4" >    
       <h3 class="text-primary"><%=listInform[j].title%></h3>
 
       <p class="px-2"><%=listInform[j].content.substring(0,100)+'...' %></p>
       <a href="/inform?id=<%=listInform[j]._id%>"><small>Xem chi tiết</small></a>
-      <div class="float-right pb-5"><small><%=listInform[j].classify%> | <%=listInform[j].createdAt%></small></div>
+      <div class="float-right pb-5"><small>
+          <%=listInform[j].createdAt%></small></div>
     </div>
     <%}%>
+    
   </div>
 
   <%if (typeof user.manageTopic !='undefined' &&typeof user.manageTopic.name!=''){%>
@@ -56,7 +59,7 @@
               <select name="classify" class="custom-select-sm" @change="handleSelectType($e)">
                 <option value="all" <%if(type=='all'){%>selected<%}%>>Tất cả</option>
                 <% for(let j=0; j<listTypeInform.length; j++) {%>                                                
-                  <option   value="<%=listTypeInform[j].name%>" <%if(type==listTypeInform[j]._id){%>selected<%}%>  ><%=listTypeInform[j].name%></option>
+                  <option   value="<%=listTypeInform[j]._id%>" <%if(type==listTypeInform[j]._id){%>selected<%}%>  ><%=listTypeInform[j].name%></option>
                   <%}%>
               </select>
                 
