@@ -48,7 +48,7 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: "https://school-tung-web.herokuapp.com/google/callback",
+      callbackURL: "https://school-node.herokuapp.com/google/callback",
     },
     async function (accessToken, refreshToken, profile, done) {
       try {

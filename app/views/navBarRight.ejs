@@ -1,18 +1,6 @@
 
   <div class="storyReel">
-    <div
-      style="
-        background-image: url('https://www.shareicon.net/data/2016/05/24/770139_man_512x512.png');
-      "
-      class="story"
-    >
-      <img
-        class="user__avatar story__avatar"
-        src="https://www.shareicon.net/data/2016/05/24/770139_man_512x512.png"
-        alt=""
-      />
-      <h4 class="h4_name" ><%=user.username%></h4>
-    </div>
+   
     <% for(let j=0; j<listUser.length; j++) {%>
     <div
       style="
@@ -31,7 +19,9 @@
     <%}%> 
   
   </div>
-
+  <% if (messages.error) { %>
+    <span class="text-warning text-center"> <h5><%= messages.error %></h5></span>
+    <% } %>
   <div class="messageSender">
     <div class="messageSender__top">
       <img

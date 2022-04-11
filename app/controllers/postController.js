@@ -1,4 +1,7 @@
 const multer = require("multer");
+
+var alert = require("alert");
+
 const Post = require("../models/post");
 const User = require("../models/user");
 const fs = require("fs-extra");
@@ -7,59 +10,62 @@ class postController {
   createPost = async (req, res, next) => {
     try {
       const { youtube, content } = req.body;
+      if (req.body.content == "") {
+        alert("Vui lòng nhập title cho bài viết");
+      } else {
+        let images = [];
+        for (let i = 0; i < req.files.length; i++) {
+          let { path, originalname } = req.files[i];
+          let newPath = `img/${
+            req.user._id
+          }/${new Date().getTime()}${originalname}`;
 
-      let images = [];
-      for (let i = 0; i < req.files.length; i++) {
-        let { path, originalname } = req.files[i];
-        let newPath = `img/${
-          req.user._id
-        }/${new Date().getTime()}${originalname}`;
-
-        if (fs.existsSync("public/" + newPath)) {
-          return res.end(
-            JSON.stringify({
-              success: false,
-              message: "Failed",
-            })
-          );
+          if (fs.existsSync("public/" + newPath)) {
+            return res.end(
+              JSON.stringify({
+                success: false,
+                message: "Failed",
+              })
+            );
+          }
+          fs.moveSync(path, "public/" + newPath);
+          images.push(newPath);
         }
-        fs.moveSync(path, "public/" + newPath);
-        images.push(newPath);
+
+        const post = new Post({
+          idOwner: req.user._id,
+          content,
+          createdAt: new Date(),
+          images,
+          video: youtube,
+        });
+        await post.save();
+
+        User.findById(req.user._id, async (error, doc) => {
+          if (error) {
+            throw error;
+          }
+
+          if (doc != null) {
+            doc.post.push(post._id);
+            await doc.save();
+
+            await post
+              .populate("idOwner")
+              .populate({
+                path: "listComment",
+                model: "Comment",
+                populate: {
+                  path: "idOwner",
+                  model: "User",
+                },
+              })
+              .execPopulate();
+            res.json(post);
+            // console.log(post);
+          }
+        });
       }
-
-      const post = new Post({
-        idOwner: req.user._id,
-        content,
-        createdAt: new Date(),
-        images,
-        video: youtube,
-      });
-      await post.save();
-
-      User.findById(req.user._id, async (error, doc) => {
-        if (error) {
-          throw error;
-        }
-
-        if (doc != null) {
-          doc.post.push(post._id);
-          await doc.save();
-
-          await post
-            .populate("idOwner")
-            .populate({
-              path: "listComment",
-              model: "Comment",
-              populate: {
-                path: "idOwner",
-                model: "User",
-              },
-            })
-            .execPopulate();
-          res.json(post);
-          console.log(post);
-        }
-      });
     } catch (error) {
       res.send(error);
     }
